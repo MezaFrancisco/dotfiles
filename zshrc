@@ -147,10 +147,24 @@ alias lctx=" KUBECONFIG=`find ~/.kube/ -type f -name '*.kubeconfig' | sort -d | 
 alias loadctx="for f in `ls -1 ~/.kube/*.kubeconfig`; do export KUBECONFIG=${KUBECONFIG}:${f}; done"
 
 # Python ( Review )
-export PATH="/usr/local/opt/python/libexec/bin:$PATH"
+# export PATH="/usr/local/opt/python/libexec/bin:$PATH"
+alias pip=/opt/homebrew/bin/pip3
+alias python=/opt/homebrew/bin/python3
+
+
 
 PROMPT="%(?:%{$fg_bold[green]%}➜ :%{$fg_bold[red]%}➜ )"
 PROMPT+=' %{$fg[blue]%}%D{%m/%d/%y %H:%M} %{$reset_color%} %{$fg[cyan]%} %c%{$reset_color%} $(git_prompt_info)'
 
 # TFENV
 export HOMEBREW_NO_CLEANUP_FORMULAE=tfenv
+
+
+# M1 Workaround
+# bypass Rosetta bug in Go
+export GODEBUG=asyncpreemptoff=1
+
+export TFENV_ARCH=amd64
+
+# Homebrew
+eval "$(/opt/homebrew/bin/brew shellenv)"
