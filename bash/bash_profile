@@ -7,7 +7,7 @@ shopt -s histappend                      # append to history, don't overwrite it
 export HOMEBREW_NO_ANALYTICS=1
 
 
-
+eval "$(/opt/homebrew/bin/brew shellenv)"
 eval "$(ssh-agent -s)"
 
 eval `ssh-add /Users/fmeza/.ssh/git_access`
@@ -27,25 +27,40 @@ export GIT_PS1_SHOWDIRTYSTATE=1
 #export PS1='\w$(__git_ps1 " (%s)")\$ '
 export GIT_PS1_SHOWCOLORHINTS=true
 
+source "$(brew --prefix)/opt/kube-ps1/share/kube-ps1.sh"
+
 set_bash_prompt (){
-     PS1="\[\033[36m\][\t]:\[\033[36m\][\w] \[\033[0m\] :"
+     #PS1='$(kube_ps1)'$PS1
+      echo "hello"
 }
+
+
+# PROMPT
+
+RED="\[\033[0;31m\]"
+YELLOW="\[\033[0;33m\]"
+GREEN="\[\033[0;32m\]"
+CYAN="\[\033[0;36m\]"
+LIGHT_GREY="\[\033[0;37m\]"
+DARK_GREY="\[\033[1;30m\]"
+NO_COLOUR="\[\033[0m\]"
 
 #PROMPT_COMMAND='__git_ps1 "[\t] :\w" ""'
 
-PROMPT_COMMAND='__git_ps1 "\[\033[36m\][\t]] \[\033[0m\][\w]" ":"'
-#PROMPT_COMMAND='__git_ps1 "[\t] \u@\h:\w" "\\\$"'
+# PS1="$(kube_ps1)[CYAN][\t]:[\CYAN][\w] \[\033[0m\] $(__git_ps1) "
+
+# working example below
+export PS1="$(kube_ps1)\[\033[36m\][\t]:\[\033[36m\][\w] \[\033[0;31m\]\$(__git_ps1)\[\033[00m\] "
+#export PS1="\n\$(kube_ps1)\n\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[0;31m\]\$(__git_ps1)\n\$\[\033[00m\] "
+
+# PROMPT_COMMAND='__git_ps1 "\[\033[0;31m\]\u@\h\[\033[0m\]:\[\033[0;36m\]\w\[\033[0m\]" "\\\$ \n$ "'
  
-#PROMPT_COMMAND='__git_ps1 "[\t] \u@\h:\w" "\\\$"'
-#PS1='[\u@\h \W$(__git_ps1 " (%s)")]\$ '
-#export PS1='\[\033[36m\][\t]:\[\033[36m\][\w] \[\033[0m\] $(__git_ps1 " (%s)")\$ :'
-# export PS1='\[\033[36m\][\t]:\[\033[36m\][\w] \[\033[0m\] $(__git_ps1 " (%s)")\$ :'
-#export PS1="\[\033[36m\][\t] \[\033[1;33m\]\u\[\033[0m\]@\W:\[\033[36m\][\w]:\[\033[0m\] "
-#export PS1="\[\033[36m\]\u\[\033[m\]@\[\033[32m\]\h:\[\033[33;1m\]\w\[\033[m\]\$ "
 export CLICOLOR=1
 export LSCOLORS=ExFxBxDxCxegedabagacad
 alias ls='ls -GFh'
 alias ll='ls -la'
+
+
 
 
 alias afk="/System/Library/Frameworks/ScreenSaver.framework/Resources/ScreenSaverEngine.app/Contents/MacOS/ScreenSaverEngine"
@@ -60,12 +75,33 @@ export KUBECONFIG=`find $HOME/.kube -type f -name 'config*' | sort -d | tr '\n' 
 
 
 
-export PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init -)"
+# export PATH="$HOME/.rbenv/bin:$PATH"
+# eval "$(rbenv init -)"
 
 # Go version
 export  GO111MODULE=on
 
 alias switch-to-zsh="chsh -s /bin/zsh"
 
+export PATH="$HOME/.pyenv/bin:$PATH"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
 
+
+export TFENV_ARCH=amd64
+
+# or set every time you tfenv install
+TFENV_ARCH=amd64 tfenv install 0.12.31
+
+export HOMEBREW_NO_CLEANUP_FORMULAE=tfenv
+
+
+###### Terraform Pubnub exports #####
+
+export TF_VAR_ic_apikey="na"
+export TF_VAR_ic_username="na" 
+export TF_VAR_ns1_apikey="na"
+
+
+## lukasz cool stuff ##
+export KUBE_EDITOR='code --wait'

@@ -135,8 +135,6 @@ export TF_PLUGIN_CACHE_DIR=$HOME/.terraform-plugin-cache
 export TF_VAR_ns1_apikey=
 export TF_VAR_ic_username=
 export TF_VAR_ic_apikey=
-export TF_VAR_artifactory_username=francisco.meza@pubnub.com
-export TF_VAR_artifactory_password=AKCp8k8iM8Fz4ti3EPugfK1aTaChdWr6VG9VbiCSWdGZzSoXGKgSonGaR9BFiR1QcCPcweJd4
 
 
 # k8s aliases
